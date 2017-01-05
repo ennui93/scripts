@@ -12,6 +12,8 @@ BACKUPMOUNTPOINT="/mnt/backup"
 ISOLATEDSUBVOLS="isolated1 isolated2"
 INCREMENTALSUBVOLS="incremental1 incremental2"
 
+### Configuration section ends
+
 fail ()
 {
     printf "$1" 1>&2
