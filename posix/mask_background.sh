@@ -1,5 +1,10 @@
 #!/bin/sh
 
+fail ()
+{
+	: "${__fail_fast:?$1}";
+}
+
 mask_background ()
 {
 	command -v convert >/dev/null 2>&1 || fail "Couldn't locate convert command -- install ImageMagick"
