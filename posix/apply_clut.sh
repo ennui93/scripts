@@ -1,3 +1,5 @@
+#!/bin/sh
+
 apply_clut ()
 {
 	command -v convert >/dev/null 2>&1 || fail "Couldn't locate convert command -- install ImageMagick"
@@ -10,7 +12,7 @@ apply_clut ()
 	convert "${1}" -modulate 100,0 /tmp/CLUT.png -clut "${2}.converted" || fail "Couldn't perform CLUT operation."
 	composite -dissolve 60 "${2}.converted" "${1}" -alpha Set "${2}.dissolved" || fail "Couldn't perform composition."
 	convert "${2}.dissolved" -normalize "${2}.normalized" || fail "Couldn't perform normalization."
-	convert "${2}.normalized" "${1}" -compose CopyOpacity -composite "${2}" || fail "Couldn't copy original alpha channel."
+	composite "${1}" "${2}.normalized" -compose Dst_In -alpha Set "${2}" || fail "Couldn't copy original alpha channel."
 
 	rm "${2}.converted" || fail "Couldn't remove ${2}.converted."
 	rm "${2}.dissolved" || fail "Couldn't remove ${2}.dissolved."
